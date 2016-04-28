@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block heading %}Repositories{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+    <tbody>
+	    {% for image in images %}
+      <tr>
+        <td><a href="image/{{ image }}"><b>{{ image }}</b></a></td>
+      </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

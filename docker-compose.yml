@@ -1,0 +1,22 @@
+app:
+    image: pstauffer/docker-registry-frontend
+    container_name: app
+    ports:
+        - 5000:5000
+    environment:
+        - REGISTRY_URL=<registry-url>
+#        - BASIC_AUTH=true
+#        - REGISTRY_USER=<user>
+#        - REGISTRY_PW=<password>
+    restart: always
+
+proxy:
+    image: nginx
+    container_name: proxy
+    volumes:
+        - ./proxy:/etc/nginx/conf.d
+    ports:
+        - 80:80
+    links:
+        - app:app
+    restart: always

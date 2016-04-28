@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block heading %}Image: <b>{{ image }}</b>{% endblock %}
+
+{% block nav %}
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="../..">Go back</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for tag in tags %}
+      <tr>
+        <td>{{ tag }}</td>
+      </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <p>
+        <code>
+            docker &lt;run|pull|push&gt; {{ registry }}/{{ image }}
+        </code>
+    </p>
+{% endblock %}
