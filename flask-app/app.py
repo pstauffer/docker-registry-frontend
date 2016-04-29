@@ -13,6 +13,10 @@ def index():
     images = j['repositories']
     return render_template('index.html', images=images)
 
+@app.route("/about")
+def about():
+    return render_template('layout.html')
+
 @app.route('/image/<path:image>')
 def tags(image):
     r = registry_request(image + '/tags/list')

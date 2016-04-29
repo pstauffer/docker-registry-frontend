@@ -35,8 +35,9 @@ docker-compse logs
 
 
 ## To Do
-- [ ] curl -i HEAD https://xxx.example.com/v2/debian/manifests/latest -> https://gist.github.com/pstauffer/ab2e1486c680539a87b5d3a069c71a21
-
+* [ ] curl -i HEAD https://xxx.example.com/v2/debian/manifests/latest -> https://gist.github.com/pstauffer/ab2e1486c680539a87b5d3a069c71a21
+* [ ] Home Button
+* [ ] About Page
 
 ## Informations
 * https://docs.docker.com/registry/spec/api/
