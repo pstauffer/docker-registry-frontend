@@ -2,14 +2,6 @@
 
 {% block heading %}Image: <b>{{ image }}</b>{% endblock %}
 
-{% block nav %}
-    <nav>
-        <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="../..">Go back</a></li>
-        </ul>
-    </nav>
-{% endblock %}
-
 {% block content %}
 <table class="table table-striped">
     <thead>
@@ -28,7 +20,11 @@
 
     <p>
         <code>
-            docker &lt;run|pull|push&gt; {{ registry }}/{{ image }}
+            docker &lt;run|pull|push&gt; {{ registry }}/{{ image }}:&lt;tag&gt;
         </code>
+    </p>
+
+    <p>
+        <a nohref onClick="window.history.back()">Back</a>
     </p>
 {% endblock %}
