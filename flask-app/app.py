@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template
 
 import requests
 import json
@@ -22,35 +22,9 @@ def tags(image):
     r = registry_request(image + '/tags/list')
     j = r.json()
     tags = j['tags']
-    return render_template('image.html', image=image, tags=tags, registry=get_registry_url())
+    return render_template('image.html', image=image, tags=tags, registry=os.environ['REGISTRY_URL'])
 
-def get_registry_url():
-    try:
-        os.environ['REGISTRY_URL']
-    except KeyError:
-        print ("Registry URL not set!")
-        raise
-    else:
-        return os.environ['REGISTRY_URL']
-
-def get_registry_user():
-    try:
-        os.environ['REGISTRY_USER']
-    except KeyError:
-        return "Registry User not set!"
-    else:
-        return os.environ['REGISTRY_USER']
-
-def get_registry_password():
-    try:
-        os.environ['REGISTRY_PW']
-    except KeyError:
-        return "Registry Password not set!"
-    else:
-        return os.environ['REGISTRY_PW']
-
-
-def get_basic_auth():
+def set_basic_auth_state():
     try:
         os.environ['BASIC_AUTH']
     except KeyError:
@@ -62,22 +36,23 @@ def get_basic_auth():
             return False
 
 def registry_request(path):
-    api_url = get_registry_url() + '/v2'
-    full_url = api_url + '/' + path
+    api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
 
-    if get_basic_auth():
+    if ENV_BASIC_AUTH:
         try:
             from requests.auth import HTTPBasicAuth  
-            return requests.get(full_url, auth=HTTPBasicAuth(get_registry_user(), get_registry_password()))
+            return requests.get(api_url, auth=HTTPBasicAuth(os.environ['REGISTRY_USER'], os.environ['REGISTRY_PW']))
         except requests.exceptions.RequestException as e:
             print ("Problem during docker registry connection")
             raise
     else:
         try:
-            return requests.get(full_url)
+            return requests.get(api_url)
         except requests.exceptions.RequestException as e:
             print ("Problem during docker registry connection")
             raise
 
 if __name__ == "__main__":
+    # set local variable for basic authentication
+    ENV_BASIC_AUTH = set_basic_auth_state()
     app.run(host='0.0.0.0', debug=True)
