@@ -42,3 +42,7 @@ docker-compse logs
 
 ## Informations
 * https://docs.docker.com/registry/spec/api/
+
+
+## License
+This project is licensed under `MIT <http://opensource.org/licenses/MIT>`_.
