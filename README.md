@@ -13,7 +13,7 @@ REGISTRY_URL=https://docker-registry.example.com
 
 If the docker registry has basic authentication activated, you have to set the following values in the ``docker-compose.yml`` file.
 ```
-BASIC_AUTH=true
+REGISTRY_AUTH=True
 REGISTRY_USER=<user>
 REGISTRY_PW=<password>
 ```

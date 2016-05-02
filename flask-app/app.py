@@ -24,35 +24,26 @@ def tags(image):
     tags = j['tags']
     return render_template('image.html', image=image, tags=tags, registry=os.environ['REGISTRY_URL'])
 
-def set_basic_auth_state():
-    try:
-        os.environ['BASIC_AUTH']
-    except KeyError:
-        return False
-    else:
-        if os.environ['BASIC_AUTH'] == "true":
-            return True
-        else:
-            return False
-
 def registry_request(path):
     api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
 
-    if ENV_BASIC_AUTH:
-        try:
-            from requests.auth import HTTPBasicAuth  
-            return requests.get(api_url, auth=HTTPBasicAuth(os.environ['REGISTRY_USER'], os.environ['REGISTRY_PW']))
-        except requests.exceptions.RequestException as e:
-            print ("Problem during docker registry connection")
-            raise
+    # set default value to False
+    REGISTRY_AUTH = os.environ.get('REGISTRY_AUTH',False)
+
+    if REGISTRY_AUTH == "True" or REGISTRY_AUTH == "true":
+        from requests.auth import HTTPBasicAuth  
+        auth = HTTPBasicAuth(os.environ['REGISTRY_USER'], os.environ['REGISTRY_PW'])
     else:
-        try:
-            return requests.get(api_url)
-        except requests.exceptions.RequestException as e:
-            print ("Problem during docker registry connection")
-            raise
+        auth = None
+
+    try:
+        r = requests.get(api_url, auth=auth)
+        if r.status_code == 401:
+            raise Exception('Return Code was 401, Authentication required / not successful!')
+        else:
+            return r
+    except requests.exceptions.RequestException as e:
+        raise Exception("Problem during docker registry connection")
 
 if __name__ == "__main__":
-    # set local variable for basic authentication
-    ENV_BASIC_AUTH = set_basic_auth_state()
     app.run(host='0.0.0.0', debug=True)

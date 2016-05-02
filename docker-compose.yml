@@ -5,7 +5,7 @@ app:
         - 5000:5000
     environment:
         - REGISTRY_URL=<registry-url>
-#        - BASIC_AUTH=true
+#        - REGISTRY_AUTH=True
 #        - REGISTRY_USER=<user>
 #        - REGISTRY_PW=<password>
     restart: always
