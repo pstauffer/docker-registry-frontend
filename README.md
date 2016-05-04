@@ -48,5 +48,14 @@ docker-compse logs
 * [Docker API](https://docs.docker.com/registry/spec/api)
 
 
+## Features
+* List all repositories
+* List all tags of a repository
+* Show tag details
+
+## Screenshots
+To get an overview about the docker-registry frontend, check out the [screenshots directory](screenshots).
+
+
 ## License
 This project is licensed under [MIT](http://opensource.org/licenses/MIT).
