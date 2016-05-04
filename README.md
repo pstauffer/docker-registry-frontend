@@ -41,8 +41,25 @@ docker-compse logs
 ```
 
 
+## Run standalone application
+
+### virtualenv
+
+```
+# install virtualenv and dependencies
+virtualenv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# set registry url
+REGISTRY_URL=https://docker-registry.example.com
+
+# run application
+python app.py
+```
+
 ## To Do
-* -
+* Documentation -> How tu run as standalone app (also with virtualenv)
 
 ## Informations
 * [Docker API](https://docs.docker.com/registry/spec/api)
