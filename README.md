@@ -25,7 +25,7 @@ REGISTRY_USER=<user>
 REGISTRY_PW=<password>
 ```
 
-### Run
+### Run Container
 This will run the frontend application and a proxy container, which will forward your request to the application:
 
 ```bash
@@ -35,11 +35,10 @@ docker-compose up -d
 After you've started the containers, the application is available on port 80.
 
 
-## Debug
+## Debugging
 ```
 docker-compse logs
 ```
-
 
 ## Run standalone application
 
@@ -52,14 +51,15 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 # set registry url
-REGISTRY_URL=https://docker-registry.example.com
+export REGISTRY_URL=https://docker-registry.example.com
 
 # run application
 python app.py
 ```
 
 ## To Do
-* Documentation -> How tu run as standalone app (also with virtualenv)
+* Docs> How tu run as standalone app (also with virtualenv)
+* Feature> Add a configuration file
 
 ## Informations
 * [Docker API](https://docs.docker.com/registry/spec/api)
