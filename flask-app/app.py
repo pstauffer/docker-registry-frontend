@@ -59,6 +59,6 @@ if __name__ == "__main__":
     if REGISTRY_AUTH == "True" or REGISTRY_AUTH == "true":
         s.auth = (os.environ['REGISTRY_USER'], os.environ['REGISTRY_PW'])
 
-    print os.environ['REGISTRY_URL']
+    print (os.environ['REGISTRY_URL'])
 
     app.run(host='0.0.0.0', debug=True)
