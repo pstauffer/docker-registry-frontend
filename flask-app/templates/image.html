@@ -19,7 +19,7 @@
     <tbody>
         {% for tag in tags %}
       <tr>
-        <td>{{ tag }}</td>
+        <td><a href="{{ frontend_url }}image/{{ image }}/tag/{{ tag }}">{{ tag }}</a></td>
       </tr>
         {% endfor %}
     </tbody>
