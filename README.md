@@ -9,6 +9,13 @@ Change the environment variable ``REGISTRY_URL`` in the ``docker-compose.yml`` f
 REGISTRY_URL=https://docker-registry.example.com
 ```
 
+### Base URL
+This setting is optional, but if you need to set a base_url with a specified path for your docker-registry frontend, use the variable ``FRONTEND_URL``.
+```
+FRONTEND_URL=https://registry.example.com/frontend
+```
+
+
 ### Basic Authentication
 
 If the docker registry has basic authentication activated, you have to set the following environment variables in the ``docker-compose.yml`` file.
@@ -37,13 +44,12 @@ docker-compse logs
 ## To Do
 
 * [ ] curl -i HEAD https://xxx.example.com/v2/debian/manifests/latest -> https://gist.github.com/pstauffer/ab2e1486c680539a87b5d3a069c71a21
-* [ ] Home Button
-* [ ] Navigation
-* [ ] About Page
+* [ ] Search Tables
+
 
 ## Informations
 * [Docker API](https://docs.docker.com/registry/spec/api)
 
 
 ## License
-This project is licensed under `MIT <http://opensource.org/licenses/MIT>`_.
+This project is licensed under [MIT](http://opensource.org/licenses/MIT).

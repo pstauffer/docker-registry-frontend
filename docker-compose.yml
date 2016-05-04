@@ -6,8 +6,9 @@ app:
     environment:
         - REGISTRY_URL=<registry-url>
 #        - REGISTRY_AUTH=True
-#        - REGISTRY_USER=<user>
-#        - REGISTRY_PW=<password>
+#        - REGISTRY_USER=<registry_user>
+#        - REGISTRY_PW=<registry_password>
+#        - FRONTEND_URL=<frontend_base_url>
     restart: always
 
 proxy:

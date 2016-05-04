@@ -10,15 +10,30 @@ app = Flask(__name__)
 def index():
     r = registry_request('_catalog')
     j = r.json()
-    images = j['repositories']
-    return render_template('index.html', images=images)
+
+    return frontend_template('index.html', images=j['repositories'])
 
 @app.route('/image/<path:image>')
 def tags(image):
     r = registry_request(image + '/tags/list')
     j = r.json()
-    tags = j['tags']
-    return render_template('image.html', image=image, tags=tags, registry=os.environ['REGISTRY_URL'])
+
+    kwargs = {
+        'tags': j['tags'],
+        'image': image,
+        'registry': os.environ['REGISTRY_URL'],
+    }
+
+    return frontend_template('image.html', **kwargs)
+
+
+def frontend_template(template, **kwargs):
+    '''
+    Wrapper function around the flask render_template function
+    to always set the frontend_url for the view.
+    '''
+    return render_template(template, frontend_url=FRONTEND_URL, **kwargs)
+
 
 def registry_request(path):
     api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
@@ -35,10 +50,15 @@ def registry_request(path):
 if __name__ == "__main__":
     s = Session()
 
-    # if not set, set authentication default value to False
+    # get authentication state or set default value
     REGISTRY_AUTH = os.environ.get('REGISTRY_AUTH',False)
+
+    # get base_url or set default value
+    FRONTEND_URL = os.getenv('FRONTEND_URL','/')
 
     if REGISTRY_AUTH == "True" or REGISTRY_AUTH == "true":
         s.auth = (os.environ['REGISTRY_USER'], os.environ['REGISTRY_PW'])
+
+    print os.environ['REGISTRY_URL']
 
     app.run(host='0.0.0.0', debug=True)
