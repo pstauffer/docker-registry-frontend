@@ -1,6 +1,18 @@
 # docker-registry-frontend
 
+## Description
+This is a simple frontend for the official [docker-registry](https://docs.docker.com/registry/). The idea was to create a readonly frontend to only display all available repositories and tags. To get an overview, just checkout the [screenshots](#screenshots). At the moment are the following features implemented:
+
+* List all repositories
+* List all tags of a repository
+* Show tag details
+
+The application can be run as [docker containter](#run-as-docker-container) or as [standalone application](#run-as-standalone-application).
+
+
 ## Run as Docker container
+
+This application is automated build and available on [docker hub](https://hub.docker.com/r/pstauffer/docker-registry-frontend).
 
 ### Preparation
 
@@ -40,7 +52,7 @@ After you've started the containers, the application is available on port 80.
 docker-compse logs
 ```
 
-## Run standalone application
+## Run as standalone application
 
 ### virtualenv
 
@@ -65,14 +77,12 @@ python app.py
 * [Docker API](https://docs.docker.com/registry/spec/api)
 
 
-## Features
-* List all repositories
-* List all tags of a repository
-* Show tag details
-
 ## Screenshots
-To get an overview about the docker-registry frontend, check out the [screenshots directory](screenshots).
+Here are some screenshots to get an overview about the docker-registry frontend.
 
+![Repositories List](screenshots/01_repositories.png "Repositories List")
+![Repository Info](screenshots/02_repo-info.png "Repository Info")
+![Tag Info](screenshots/03_tag-info.png "Tag Info")
 
 ## License
 This project is licensed under [MIT](http://opensource.org/licenses/MIT).
