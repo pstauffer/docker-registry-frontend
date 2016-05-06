@@ -70,8 +70,15 @@ python app.py
 ```
 
 ## To Do
-* Docs> How tu run as standalone app (also with virtualenv)
+* Docs> How to run as standalone app (also with virtualenv)
+* Docs> Link to official docker-compose docu
+* Docs> How to run without docker-compose
 * Feature> Add a configuration file
+* Bugfix> Change port, not 5000 (conflict with docker-registry)
+* Tests> Is it needed to expose the app port (maybe for the nginx container?!)
+* Tests> Basic Auth as Container & Standalone App
+
+
 
 ## Informations
 * [Docker API](https://docs.docker.com/registry/spec/api)
