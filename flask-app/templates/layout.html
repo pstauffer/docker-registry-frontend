@@ -21,8 +21,10 @@
     <script type="text/javascript" src="//cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#datatable').DataTable();
-        } );
+            $('#datatable').DataTable( {
+                "pageLength": 50
+            });
+        });
     </script>
 
   </head>
