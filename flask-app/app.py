@@ -34,7 +34,7 @@ def image(image):
 
     return frontend_template('image.html', **kwargs)
 
-@app.route('/image/<path:image>/tag/<tag>/')
+@app.route('/image/<path:image>/tag/<tag>')
 def example(image, tag):
     r = registry_request(image + '/manifests/' + tag)
     j = r.json()
