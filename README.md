@@ -1,7 +1,11 @@
 # docker-registry-frontend
 
 ## Description
-This is a simple frontend for the official [docker-registry](https://docs.docker.com/registry/). The idea was to create a readonly frontend to only display all available repositories and tags. To get an overview, just checkout the [screenshots](#screenshots). At the moment are the following features implemented:
+This is a simple frontend for the official [docker-registry](https://docs.docker.com/registry/). The idea was to create a readonly frontend to only display all available repositories and tags.
+
+[![](https://images.microbadger.com/badges/version/pstauffer/docker-registry-frontend.svg)](https://microbadger.com/images/pstauffer/docker-registry-frontend)
+
+To get an overview, just checkout the [screenshots](#screenshots). At the moment are the following features implemented:
 
 * List all repositories
 * List all tags of a repository
