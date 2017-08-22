@@ -60,7 +60,7 @@ def registry_request(path, method="GET"):
     api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
 
     try:
-        r = getattr(s, method.lower())(api_url)
+        r = getattr(s, method.lower())(api_url, verify=False)
         if r.status_code == 401:
             raise Exception('Return Code was 401, Authentication required / not successful!')
         else:
