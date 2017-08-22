@@ -1,11 +1,18 @@
-from flask import Flask, render_template
-
-from requests import Session, RequestException
 import json
 import os
+
+from dogpile.cache import make_region
+from flask import Flask, render_template
+from requests import Session, RequestException
 from werkzeug.routing import BaseConverter
 
+MAX_REPOSITORIES=1000
+
 app = Flask(__name__)
+region = make_region().configure(
+    'dogpile.cache.memory_pickle'
+)
+
 
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
@@ -14,12 +21,16 @@ class RegexConverter(BaseConverter):
 
 app.url_map.converters['regex'] = RegexConverter
 
+
+@region.cache_on_arguments()
+def get_all_repositories():
+    r = registry_request('_catalog?n={}'.format(MAX_REPOSITORIES))
+    j = r.json()
+    return j['repositories']
+
 @app.route("/")
 def index():
-    r = registry_request('_catalog')
-    j = r.json()
-
-    return frontend_template('index.html', images=j['repositories'])
+    return frontend_template('index.html', images=get_all_repositories())
 
 @app.route('/image/<path:image>')
 def image(image):
