@@ -49,12 +49,24 @@ def image(image):
 def example(image, tag):
     r = registry_request(image + '/manifests/' + tag)
     j = r.json()
-    print 
+
+    history = []
+    if j.get('history'):
+        for item in j.get('history', []):
+            if item.get('v1Compatibility'):
+                raw = json.loads(item['v1Compatibility'])
+                cmds = raw.get('container_config', {}).get('Cmd', '')
+                if cmds:
+                    for cmd in cmds:
+                        cmd = cmd.replace('/bin/sh -c #(nop) ', '')
+                        cmd = cmd.replace('/bin/sh -c ', 'CMD ')
+                        history.append(cmd)
 
     kwargs = {
         'tag': tag,
         'image': image,
-        'layers': len(j['fsLayers'])
+        'layers': len(j['fsLayers']),
+        'history': reversed(history)
     }
 
     return frontend_template('tag.html', **kwargs)

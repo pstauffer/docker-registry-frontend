@@ -16,6 +16,14 @@
             </tr><tr>
                 <td>Layers</td><td><b>{{ layers }}</b></td>
             </tr>
+            <tr>
+                <td>History</td>
+                <td>
+                        {% for item in history %}
+                            {{ item }}<br>
+                        {% endfor %}
+                </td>
+            </tr>
         </table>
     </div>
 
