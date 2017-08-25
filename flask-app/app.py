@@ -3,6 +3,7 @@ import os
 
 from dogpile.cache import make_region
 from flask import Flask, render_template
+import pendulum
 from requests import Session, RequestException
 from werkzeug.routing import BaseConverter
 
@@ -75,6 +76,7 @@ def image_tag_detail(image, tag):
         'layers': len(data['fsLayers']),
         'history': reversed(history),
         'tag_detail': tag_detail,
+        'created': pendulum.parse(tag_detail.get('created')).diff_for_humans(),
     }
 
     return frontend_template('tag.html', **kwargs)
