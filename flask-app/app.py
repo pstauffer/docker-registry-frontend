@@ -94,7 +94,7 @@ def registry_request(path, method="GET"):
     api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
 
     try:
-        response = getattr(session, method.lower())(api_url, verify=False)
+        response = getattr(session, method.lower())(api_url, verify=REGISTRY_VERIFY_SSL)
         if response.status_code == 401:
             raise Exception('Return Code was 401, Authentication required / not successful!')
         else:
@@ -108,6 +108,11 @@ if __name__ == "__main__":
 
     # get authentication state or set default value
     REGISTRY_AUTH = os.environ.get('REGISTRY_AUTH', False)
+
+    if os.environ.get('REGISTRY_VERIFY_SSL') == '0':
+        REGISTRY_VERIFY_SSL = False
+    else:
+        REGISTRY_VERIFY_SSL = True
 
     # get base_url or set default value
     FRONTEND_URL = os.getenv('FRONTEND_URL', '/')

@@ -50,6 +50,11 @@ docker-compose up -d
 
 After you've started the containers, the application is available on port 80.
 
+## SSL verification
+If you need to disable SSL verification of the registry, you can do so via ``REGISTRY_VERIFY_SSL``:
+```
+export REGISTRY_VERIFY_SSL=0
+```
 
 ## Debugging
 ```
