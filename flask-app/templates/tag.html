@@ -11,9 +11,20 @@
         <table class="table">
             <tr>
                 <td>Image</td><td><b>{{ image }}</b></td>
-            </tr><tr>
+            </tr>
+            <tr>
                 <td>Tag</td><td><b>{{ tag }}</b></td>
-            </tr><tr>
+            </tr>
+            <tr>
+                <td>Image ID</td><td><b>{{ tag_detail.id|truncate(12, end='') }}</b></td>
+            </tr>
+            <tr>
+                <td>Author</td><td><b>{{ tag_detail.author }}</b></td>
+            </tr>
+            <tr>
+                <td>Created</td><td><b>{{ tag_detail.created }}</b></td>
+            </tr>
+            <tr>
                 <td>Layers</td><td><b>{{ layers }}</b></td>
             </tr>
             <tr>

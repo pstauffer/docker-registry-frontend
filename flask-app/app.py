@@ -55,10 +55,13 @@ def image_tag_detail(image, tag):
     data = response.json()
 
     history = []
+    tag_detail = {}
     if data.get('history'):
         for item in data.get('history', []):
             if item.get('v1Compatibility'):
                 raw = json.loads(item['v1Compatibility'])
+                if not tag_detail:
+                    tag_detail = raw
                 cmds = raw.get('container_config', {}).get('Cmd', '')
                 if cmds:
                     for cmd in cmds:
@@ -71,6 +74,7 @@ def image_tag_detail(image, tag):
         'image': image,
         'layers': len(data['fsLayers']),
         'history': reversed(history),
+        'tag_detail': tag_detail,
     }
 
     return frontend_template('tag.html', **kwargs)
