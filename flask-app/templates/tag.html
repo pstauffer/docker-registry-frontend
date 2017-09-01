@@ -27,6 +27,7 @@
             <tr>
                 <td>Layers</td><td><b>{{ layers }}</b></td>
             </tr>
+            {% if labels %}
             <tr>
                 <td>Labels</td>
                 <td>
@@ -47,6 +48,7 @@
                     </table>
                 </td>
             </tr>
+            {% endif %}
             <tr>
                 <td>Dockerfile</td>
                 <td>
