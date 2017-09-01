@@ -1,5 +1,7 @@
+import html
 import json
 import os
+import re
 
 from dogpile.cache import make_region
 from flask import Flask, render_template
@@ -55,6 +57,12 @@ def image_tag_detail(image, tag):
     response = registry_request(image + '/manifests/' + tag)
     data = response.json()
 
+    hightlights = [
+        r'^(FROM)', r'^(MAINTAINER)', r'^(RUN)', r'^(ADD)',
+        r'^(COPY)', r'^(EXPOSE)', r'^(USER)', r'^(ENTRYPOINT)',
+        r'^(CMD)', r'^(ENV)', r'^(VOLUME)', r'^(LABEL)', r'^(ARG)'
+    ]
+
     replacements = {
         '/bin/sh -c #(nop) ': '',
         '/bin/sh -c ': 'CMD ',
@@ -74,9 +82,13 @@ def image_tag_detail(image, tag):
                 cmds = raw.get('container_config', {}).get('Cmd', '')
                 if cmds:
                     for cmd in cmds:
+                        cmd = html.escape(cmd)
                         for key in replacements:
                             cmd = cmd.replace(key, replacements[key]).strip()
-                        history.append(cmd)
+                        for highlight in hightlights:
+                            cmd = re.sub(highlight, r'<span class="highlight">\1</span>', cmd)
+                        if cmd:
+                            history.append(cmd)
 
     kwargs = {
         'tag': tag,
