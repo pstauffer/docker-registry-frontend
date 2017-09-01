@@ -72,6 +72,7 @@ def image_tag_detail(image, tag):
     }
 
     history = []
+    labels = {}
     tag_detail = {}
     if data.get('history'):
         for item in data.get('history', []):
@@ -95,6 +96,7 @@ def image_tag_detail(image, tag):
         'image': image,
         'layers': len(data['fsLayers']),
         'history': reversed(history),
+        'labels': tag_detail.get('config', {}).get('Labels', {}),
         'tag_detail': tag_detail,
         'created': pendulum.parse(tag_detail.get('created')).diff_for_humans(),
     }
