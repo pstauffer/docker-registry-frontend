@@ -1,3 +1,3 @@
 
 run-devel:
-	python flask-app/app.py
+	python docker_registry_frontend/run.py
