@@ -33,6 +33,47 @@ def get_all_repositories():
     return data['repositories']
 
 
+def process_manifest_data(data):
+    hightlights = [
+        r'^(FROM)', r'^(MAINTAINER)', r'^(RUN)', r'^(ADD)',
+        r'^(COPY)', r'^(EXPOSE)', r'^(USER)', r'^(ENTRYPOINT)',
+        r'^(CMD)', r'^(ENV)', r'^(VOLUME)', r'^(LABEL)', r'^(ARG)'
+    ]
+
+    replacements = {
+        '/bin/sh -c #(nop) ': '',
+        '/bin/sh -c ': 'CMD ',
+        '/bin/sh': '',
+        '-c': '',
+        '#(nop)': ''
+    }
+
+    def process_cmds(cmds):
+        if not cmds:
+            raise StopIteration()
+        for cmd in cmds:
+            cmd = html.escape(cmd)
+            for key in replacements:
+                cmd = cmd.replace(key, replacements[key]).strip()
+            for highlight in hightlights:
+                cmd = re.sub(highlight, r'<span class="highlight">\1</span>', cmd)
+            if cmd:
+                yield cmd
+
+    history = []
+    tag_detail = {}
+    if data.get('history'):
+        for item in data.get('history', []):
+            if item.get('v1Compatibility'):
+                raw = json.loads(item['v1Compatibility'])
+                if not tag_detail:
+                    tag_detail = raw
+                cmds = raw.get('container_config', {}).get('Cmd', '')
+                history.extend(process_cmds(cmds))
+
+    return history, tag_detail
+
+
 @app.route("/")
 def index():
     return frontend_template('index.html', images=get_all_repositories())
@@ -57,38 +98,7 @@ def image_tag_detail(image, tag):
     response = registry_request(image + '/manifests/' + tag)
     data = response.json()
 
-    hightlights = [
-        r'^(FROM)', r'^(MAINTAINER)', r'^(RUN)', r'^(ADD)',
-        r'^(COPY)', r'^(EXPOSE)', r'^(USER)', r'^(ENTRYPOINT)',
-        r'^(CMD)', r'^(ENV)', r'^(VOLUME)', r'^(LABEL)', r'^(ARG)'
-    ]
-
-    replacements = {
-        '/bin/sh -c #(nop) ': '',
-        '/bin/sh -c ': 'CMD ',
-        '/bin/sh': '',
-        '-c': '',
-        '#(nop)': ''
-    }
-
-    history = []
-    tag_detail = {}
-    if data.get('history'):
-        for item in data.get('history', []):
-            if item.get('v1Compatibility'):
-                raw = json.loads(item['v1Compatibility'])
-                if not tag_detail:
-                    tag_detail = raw
-                cmds = raw.get('container_config', {}).get('Cmd', '')
-                if cmds:
-                    for cmd in cmds:
-                        cmd = html.escape(cmd)
-                        for key in replacements:
-                            cmd = cmd.replace(key, replacements[key]).strip()
-                        for highlight in hightlights:
-                            cmd = re.sub(highlight, r'<span class="highlight">\1</span>', cmd)
-                        if cmd:
-                            history.append(cmd)
+    history, tag_detail = process_manifest_data(data)
 
     kwargs = {
         'tag': tag,
