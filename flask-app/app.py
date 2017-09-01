@@ -46,7 +46,7 @@ def image_detail(image):
     kwargs = {
         'tags': data['tags'],
         'image': image,
-        'registry': os.environ['REGISTRY_URL'],
+        'registry': re.sub('https?://', '', os.environ['REGISTRY_URL']),
     }
 
     return frontend_template('image.html', **kwargs)
@@ -72,7 +72,6 @@ def image_tag_detail(image, tag):
     }
 
     history = []
-    labels = {}
     tag_detail = {}
     if data.get('history'):
         for item in data.get('history', []):
