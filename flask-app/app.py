@@ -55,6 +55,14 @@ def image_tag_detail(image, tag):
     response = registry_request(image + '/manifests/' + tag)
     data = response.json()
 
+    replacements = {
+        '/bin/sh -c #(nop) ': '',
+        '/bin/sh -c ': 'CMD ',
+        '/bin/sh': '',
+        '-c': '',
+        '#(nop)': ''
+    }
+
     history = []
     tag_detail = {}
     if data.get('history'):
@@ -66,8 +74,8 @@ def image_tag_detail(image, tag):
                 cmds = raw.get('container_config', {}).get('Cmd', '')
                 if cmds:
                     for cmd in cmds:
-                        cmd = cmd.replace('/bin/sh -c #(nop) ', '')
-                        cmd = cmd.replace('/bin/sh -c ', 'CMD ')
+                        for key in replacements:
+                            cmd = cmd.replace(key, replacements[key]).strip()
                         history.append(cmd)
 
     kwargs = {
