@@ -32,7 +32,7 @@ def image_detail(image):
     data = response.json()
 
     kwargs = {
-        'tags': data['tags'],
+        'tags': data['tags'] if data['tags'] else [],
         'image': image,
         'registry': g.config.get('registry_host'),
     }
