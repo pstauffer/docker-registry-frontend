@@ -39,7 +39,7 @@ def main():
     print("Registry URL: " + registry_url)
     print("Frontend URL: " + frontend_url)
 
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=os.environ.get('DEBUG'))
 
 
 if __name__ == '__main__':

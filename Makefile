@@ -1,3 +1,3 @@
 
 run-devel:
-	python docker_registry_frontend/run.py
+	DEBUG=1 python docker_registry_frontend/run.py
