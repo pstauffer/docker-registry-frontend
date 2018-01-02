@@ -33,7 +33,7 @@ def process_manifest_data(data):
 
     replacements = {
         '/bin/sh -c #(nop) ': '',
-        '/bin/sh -c ': 'CMD ',
+        '/bin/sh -c ': 'RUN ',
         '/bin/sh': '',
         '-c': '',
         '#(nop)': ''
