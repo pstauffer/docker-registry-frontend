@@ -8,9 +8,11 @@ from flask import g, render_template
 from requests import RequestException
 
 MAX_REPOSITORIES = 1000
+EXPIRATION_TIME = 600
 
 region = make_region().configure(
-    'dogpile.cache.memory_pickle'
+    'dogpile.cache.memory_pickle',
+    expiration_time=EXPIRATION_TIME,
 )
 
 
