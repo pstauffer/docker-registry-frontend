@@ -1,5 +1,6 @@
 import html
 import json
+import logging
 import os
 import re
 
@@ -68,6 +69,7 @@ def registry_request(path, method="GET"):
     api_url = os.environ['REGISTRY_URL'] + '/v2/' + path
 
     try:
+        logging.debug('%s %s verify=%s', method.upper(), api_url, g.config.get('registry_verify_ssl'))
         response = getattr(g.session, method.lower())(api_url, verify=g.config.get('registry_verify_ssl'))
         if response.status_code == 401:
             raise Exception('Return Code was 401, Authentication required / not successful!')
