@@ -20,7 +20,7 @@ def main():
         registry_verify_ssl = True
 
     # get base_url or set default value
-    frontend_url = os.getenv('FRONTEND_URL', '/')
+    frontend_url = os.environ.get('FRONTEND_URL', '/')
     if not frontend_url.endswith('/'):
         frontend_url = frontend_url + "/"
 
@@ -32,6 +32,7 @@ def main():
             'registry_host': re.sub('https?://', '', registry_url),
             'registry_verify_ssl': registry_verify_ssl,
             'frontend_url': frontend_url,
+            'max_repositories': int(os.environ.get('MAX_REPOSITORIES', 1000)),
         }
 
         if registry_auth == "True" or registry_auth == "true":

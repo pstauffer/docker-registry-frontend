@@ -18,8 +18,8 @@ region = make_region().configure(
 
 
 @region.cache_on_arguments()
-def get_all_repositories():
-    response = registry_request('_catalog?n={}'.format(MAX_REPOSITORIES))
+def get_all_repositories(max_repositories):
+    response = registry_request('_catalog?n={}'.format(max_repositories))
     data = response.json()
     return data['repositories']
 

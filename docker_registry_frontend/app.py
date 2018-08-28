@@ -23,7 +23,7 @@ app.url_map.converters['regex'] = RegexConverter
 
 @app.route("/")
 def index():
-    return frontend_template('index.html', images=get_all_repositories())
+    return frontend_template('index.html', images=get_all_repositories(g.config.get('max_repositories')))
 
 
 @app.route('/image/<path:image>')
