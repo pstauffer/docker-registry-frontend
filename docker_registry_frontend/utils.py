@@ -75,6 +75,7 @@ def registry_request(path, method="GET"):
         else:
             return response
     except RequestException:
+        logging.exception('registry request')
         raise Exception("Problem during docker registry connection")
 
 
