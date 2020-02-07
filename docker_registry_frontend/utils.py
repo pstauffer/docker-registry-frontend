@@ -31,11 +31,11 @@ def process_manifest_data(data):
     ]
 
     replacements = {
-        '/bin/sh -c #(nop) ': '',
-        '/bin/sh -c ': 'RUN ',
-        '/bin/sh': '',
-        '-c': '',
-        '#(nop)': ''
+        r'^/bin/sh -c #\(nop\) ': '',
+        r'^/bin/sh -c ': 'RUN ',
+        r'^/bin/sh': '',
+        r'^-c': '',
+        r'^#\(nop\)': ''
     }
 
     def process_cmds(cmds):
@@ -44,7 +44,7 @@ def process_manifest_data(data):
         for cmd in cmds:
             cmd = html.escape(cmd)
             for key in replacements:
-                cmd = cmd.replace(key, replacements[key]).strip()
+                cmd = re.sub(key, replacements[key], cmd).strip()
             for highlight in hightlights:
                 cmd = re.sub(highlight, r'<span class="highlight">\1</span>', cmd)
             if cmd:
