@@ -1,7 +1,7 @@
 dogpile.cache==0.6.7
 Flask==0.10.1
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.11.3
 pendulum==1.2.4
 MarkupSafe==0.23
 requests==2.8.1
