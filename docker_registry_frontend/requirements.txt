@@ -1,5 +1,5 @@
 dogpile.cache==0.6.7
-Flask==0.10.1
+Flask==1.0
 itsdangerous==0.24
 Jinja2==2.8
 pendulum==1.2.4
