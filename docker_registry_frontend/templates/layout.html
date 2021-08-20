@@ -7,8 +7,6 @@
 
     <title>Docker-Registry Frontend</title>
 
-    <!-- Bootstrap -->
-    <link href="//getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,6 +16,19 @@
 
     <!-- Datatables -->
     <link href="//cdn.datatables.net/r/bs-3.3.5/jq-2.1.4,dt-1.10.8/datatables.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .highlight {
+            color: #F55;
+        }
+        .dockerfile {
+            width: 1000px;
+            overflow: scroll;
+        }
+        .labels td {
+            padding: 3px 10px 3px 0px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
     <script type="text/javascript" src="//cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Image <a href="{{ url_for('image_detail', image=image) }}">{{ image }}</a> : {{ tag }}</h3>
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <td>Image</td><td><b>{{ image }}</b></td>
+            </tr>
+            <tr>
+                <td>Tag</td><td><b>{{ tag }}</b></td>
+            </tr>
+            <tr>
+                <td>Image ID</td><td><b>{{ tag_detail.id|truncate(12, end='') }}</b></td>
+            </tr>
+            <tr>
+                <td>Author</td><td><b>{{ tag_detail.author }}</b></td>
+            </tr>
+            <tr>
+                <td>Created</td><td><b title="{{ tag_detail.created }}">{{ created }}</b></td>
+            </tr>
+            <tr>
+                <td>Layers</td><td><b>{{ layers }}</b></td>
+            </tr>
+            {% if labels %}
+            <tr>
+                <td>Labels</td>
+                <td>
+                    <table class="labels">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for label, value in labels.items() %}
+                            <tr>
+                                <td>{{ label }}</td><td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>Dockerfile</td>
+                <td>
+                        <pre class="dockerfile">{% for item in history -%}
+                            {{ item|safe }}<br>
+                        {%- endfor %}</pre>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<p>
+    <a href="#" onClick="window.history.back()">Back</a>
+</p>
+{% endblock %}

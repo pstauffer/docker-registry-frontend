@@ -1,6 +1,7 @@
 # docker-registry-frontend
 
 ## Description
+
 This is a simple frontend for the official [docker-registry](https://docs.docker.com/registry/). The idea was to create a readonly frontend to only display all available repositories and tags.
 
 [![](https://images.microbadger.com/badges/image/pstauffer/docker-registry-frontend.svg)](https://microbadger.com/images/pstauffer/docker-registry-frontend)
@@ -21,20 +22,23 @@ This application is automated build and available on [docker hub](https://hub.do
 ### Preparation
 
 Change the environment variable ``REGISTRY_URL`` in the ``docker-compose.yml`` file.
+
 ```
 REGISTRY_URL=https://docker-registry.example.com
 ```
 
-### Base URL
+### Base URL
+
 This setting is optional, but if you need to set a base_url with a specified path for your docker-registry frontend, use the variable ``FRONTEND_URL``.
+
 ```
 FRONTEND_URL=https://registry.example.com/frontend
 ```
 
-
-### Basic Authentication
+### Basic Authentication
 
 If the docker registry has basic authentication activated, you have to set the following environment variables in the ``docker-compose.yml`` file.
+
 ```
 REGISTRY_AUTH=True
 REGISTRY_USER=<user>
@@ -42,6 +46,7 @@ REGISTRY_PW=<password>
 ```
 
 ### Run Container
+
 This will run the frontend application and a proxy container, which will forward your request to the application:
 
 ```bash
@@ -50,8 +55,16 @@ docker-compose up -d
 
 After you've started the containers, the application is available on port 80.
 
+## SSL verification
+
+If you need to disable SSL verification of the registry, you can do so via ``REGISTRY_VERIFY_SSL``:
+
+```
+export REGISTRY_VERIFY_SSL=0
+```
 
 ## Debugging
+
 ```
 docker-compse logs
 ```
@@ -73,7 +86,8 @@ export REGISTRY_URL=https://docker-registry.example.com
 python app.py
 ```
 
-## To Do
+## To Do
+
 * Docs> How to run as standalone app (also with virtualenv)
 * Docs> Link to official docker-compose docu
 * Docs> How to run without docker-compose
@@ -85,10 +99,12 @@ python app.py
 
 
 ## Informations
+
 * [Docker API](https://docs.docker.com/registry/spec/api)
 
 
 ## Screenshots
+
 Here are some screenshots to get an overview about the docker-registry frontend.
 
 ![Repositories List](screenshots/01_repositories.png "Repositories List")
@@ -96,4 +112,5 @@ Here are some screenshots to get an overview about the docker-registry frontend.
 ![Tag Info](screenshots/03_tag-info.png "Tag Info")
 
 ## License
+
 This project is licensed under [MIT](http://opensource.org/licenses/MIT).

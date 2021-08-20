@@ -1,0 +1,8 @@
+dogpile.cache==0.6.7
+Flask==1.0
+itsdangerous==0.24
+Jinja2==2.11.3
+pendulum==1.2.4
+MarkupSafe==0.23
+requests==2.20.0
+Werkzeug==0.15.3
